@@ -15,7 +15,7 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Label Content="Welcome " Name="lblWelcome" Grid.Row="0"
-       Grid.Column="0" Grid.ColumnSpan="3"
+       Grid.Column="0" Grid.ColumnSpan="4"
        HorizontalAlignment="Center" Height="50"
        VerticalAlignment="Top" FontSize="25"
        FontWeight="Medium" Foreground="BlueViolet"/>
@@ -28,6 +28,9 @@
         Margin="100, 20, 100, 20" Click="btnViewHistory_Click"></Button>
         <Button Name="btnLogOut" Grid.Row="3" 
         Content="Log Out" 
-        Margin="100, 20, 100, 20" Click="btnLogOut_Click"></Button>
+        Margin="100,88,100,-51" Click="btnLogOut_Click"></Button>
+        <Button Content="Booking" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Width="600" Height="56"/>
+
+
     </Grid>
 </Window>

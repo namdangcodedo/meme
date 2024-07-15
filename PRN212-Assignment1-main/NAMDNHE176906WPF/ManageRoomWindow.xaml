@@ -87,6 +87,7 @@
           CanUserAddRows="False"
           Name="dgData"
           SelectionChanged="dgData_SelectionChanged"></DataGrid>
+      
         <Button Name="btnLogout1"
         Grid.Column="1"
         Grid.Row="6"
