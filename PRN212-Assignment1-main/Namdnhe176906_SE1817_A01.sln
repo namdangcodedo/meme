@@ -7,13 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccessLayer", "DataAccessLayer", "{CD9CB105-A4A9-47B8-A492-3ECB6D8042CE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{CD072C1C-4223-47F8-8BC6-C136BF3667FE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{CD072C1C-4223-47F8-8BC6-C136BF3667FE}"
+	ProjectSection(SolutionItems) = preProject
+		ViewBookingForCustomer.cs = ViewBookingForCustomer.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{FA631748-5721-413E-9BCF-820BEFD4DF3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{068740BE-31B7-41AE-BE9C-5B35444D1872}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAMDNHE176906WPF", "NAMDNHE176906WPF\NAMDNHE176906WPF.csproj", "{059375A7-D1CE-4BC1-89F1-5DB461BD489B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NAMDNHE176906WPF", "NAMDNHE176906WPF\NAMDNHE176906WPF.csproj", "{059375A7-D1CE-4BC1-89F1-5DB461BD489B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

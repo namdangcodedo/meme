@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessObject;
+using DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,46 @@ namespace NAMDNHE176906WPF
     /// </summary>
     public partial class AddBookingWindow : Window
     {
-        public AddBookingWindow()
+       
+    public AddBookingWindow()
         {
             InitializeComponent();
+        }
+
+       
+
+        private void btnLoadReport_Click(object sender, RoutedEventArgs e)
+        {
+            var startDate = dpStart.Text;
+            var endDate = dpEnd.Text;
+            RoomInformationDAO dal = new RoomInformationDAO();
+            var list = new List<ViewBookingForC>();
+            list = dal.GetRoomInformationListC();
+            ListView.ItemsSource = list;
+        }
+
+        private void btnLogout1_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var booking = button.DataContext as BookingReservation;
+            if (booking != null)
+            {
+                // Show the booking detail pop-up window passing the booking reservation ID
+                BookingDetailWindow detailWindow = new BookingDetailWindow
+                {
+                    BookingID = booking.BookingReservationID,
+                    AdminOrCustomer = true
+                };
+                this.Close();
+                detailWindow.ShowDialog();
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            AdminWindow adminWindow = new AdminWindow();
+            this.Close();
+            adminWindow.Show();
         }
     }
 }

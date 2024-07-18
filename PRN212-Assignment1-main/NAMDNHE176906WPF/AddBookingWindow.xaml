@@ -7,27 +7,97 @@
         mc:Ignorable="d"
         Title="AddBookingWindow" Height="450" Width="800">
     <Grid>
-        <Label Content="Start Date" Margin="0,2,0,10"/>
-        <DatePicker Name="dpStart"
-               Margin="0,32,0,373" Width="200"
-               HorizontalAlignment="Left"/>
-        <Label Content="End Date" Margin="260,3,5,373"/>
-        <Label  Content="Rooms can be booked" Margin="0,70,648,333"/>
-        <DatePicker Name="dpEnd"
-               Margin="260,32,340,373" Width="200"/>
-        <ListView Name="listRoomCanBooks" Height="318" VerticalAlignment="Top" Margin="0,106,0,0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="RoomID" Width="80" DisplayMemberBinding="{Binding Path=RoomID}"/>
-                    <GridViewColumn Header="RoomNumber" Width="120" DisplayMemberBinding="{Binding Path=RoomNumber}"/>
-                    <GridViewColumn Header="RoomDescription" Width="335" DisplayMemberBinding="{Binding Path=RoomDescription}"/>
-                    <GridViewColumn Header="RoomMaxCapacity" Width="120" DisplayMemberBinding="{Binding Path=RoomMaxCapacity}"/>
-                    <GridViewColumn Header="RoomPricePerDate" Width="140" DisplayMemberBinding="{Binding Path=RoomPricePerDate}"/>
-                 
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
 
+        <Label Content="Start Date" Grid.Row="1" Grid.Column="1" Margin="0,2,0,38" Grid.RowSpan="2"/>
+        <DatePicker Grid.Row="2" Grid.Column="1" Name="dpStart"
+                    Margin="0,5,50,5" Width="200"
+                    HorizontalAlignment="Left"></DatePicker>
+        <Label Content="End Date" Grid.Column="1" Margin="260,3,5,37" Grid.Row="1" Grid.RowSpan="2"/>
+        <DatePicker Grid.Row="2" Grid.Column="1" Name="dpEnd"
+                    Margin="0,5,50,5" Width="200"></DatePicker>
 
+        <Button Grid.Column="1"
+                    Grid.Row="2"
+                    Width="100"
+                    Height="30"
+                    Content="Load"
+                    FontSize="18"
+                    Margin="526,5,100,5"
+                    Name="btnLoadReport"
+                    Click="btnLoadReport_Click"/>
+
+        <DataGrid Grid.Column="1"  
+                  Grid.Row="4" EnableRowVirtualization="False"
+                  VerticalScrollBarVisibility="auto"
+                  CanUserAddRows="False" AutoGenerateColumns="False"
+                  Name="ListView" SelectionMode="Single">
+            <DataGrid.Columns >
+                <DataGridTextColumn 
+                    Header="Room Number" 
+                    Binding="{Binding RoomNumber}" 
+                    Width="*"/>
+                <DataGridTextColumn 
+                    Header="RoomDescription" 
+                    Binding="{Binding RoomDescription}"
+                    Width="*"/>
+                <DataGridTextColumn 
+                    Header="RoomMaxCapacity" 
+                    Binding="{Binding RoomMaxCapacity}" 
+                    Width="*"/>
+                <DataGridTextColumn 
+                    Header="RoomPricePerDate" 
+                    Binding="{Binding RoomPricePerDate}" 
+                    Width="*"/>
+                <DataGridTextColumn 
+                    Header="RoomTypeName" 
+                    Binding="{Binding RoomTypeName}" 
+                    Width="*"/>
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Name="btnLogout1"
+                Grid.Column="1"
+                Grid.Row="5"
+                Content="Logout"
+                Width="100" Margin="0,0,200,0"
+                Height="30"
+                Click="btnLogout1_Click"></Button>
+        <Button Name="btnClose"
+                Grid.Column="1"
+                Grid.Row="5"
+                Content="Close"
+                Width="100" Margin="200,0,0,0"
+                Height="30"
+                Click="btnClose_Click"></Button>
+        <Button Grid.Column="1"
+            Grid.Row="2"
+            Height="30"
+            Content="ADD"
+            FontSize="18"
+            Margin="658,5,10,5"
+            x:Name="btnadd"
+            Click=""/>
     </Grid>
 </Window>
+

@@ -13,7 +13,7 @@ namespace DataAccess
     {
         private static RoomInformationDAO instance = null;
         private static readonly object instanceLock = new object();
-        private RoomInformationDAO() { }
+        public RoomInformationDAO() { }
 
         public static RoomInformationDAO Instance
         {
@@ -193,5 +193,41 @@ namespace DataAccess
             }
         }
 
+        public List<ViewBookingForC> GetRoomInformationListC()
+        {
+            SqlDataReader reader = null;
+            string SQL = "  SELECT ri.[RoomID]\n      ,ri.[RoomNumber]\n      ,ri.[RoomDetailDescription]\n      ,ri.[RoomMaxCapacity]\n      ,ri.[RoomStatus]\n      ,ri.[RoomPricePerDay]\n      ,rt.[RoomTypeName]\n      ,rt.[TypeDescription]\n      ,rt.[TypeNote],\n\t  rt.RoomTypeID\n\n  FROM [dbo].[RoomInformation] ri\n  JOIN [dbo].[RoomType] rt\n    ON ri.[RoomTypeID] = rt.[RoomTypeID]";
+            var list = new List<ViewBookingForC>();
+            try
+            {
+                reader = DataProvider.GetDataReader(SQL, CommandType.Text, out connection);
+                while (reader.Read())
+                {
+                    list.Add(new ViewBookingForC()
+                    {
+                        RoomID = reader.GetInt32("RoomID"),
+                        RoomNumber = reader.GetString("RoomNumber"),
+                        RoomDescription = reader.GetString("RoomDetailDescription"),
+                        RoomMaxCapacity = reader.GetInt32("RoomMaxCapacity"),
+                        RoomStatus = reader.GetByte("RoomStatus"),
+                        RoomPricePerDate = reader.GetDecimal("RoomPricePerDay"),
+                        RoomTypeId = reader.GetInt32("RoomTypeID"),
+                        RoomTypeName = reader.GetString("RoomTypeName")
+                    });
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                reader.Close();
+                CloseConnection();
+            }
+
+
+        }
     }
 }
