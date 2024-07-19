@@ -12,14 +12,37 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="dgBookingHistory" AutoGenerateColumns="False" Grid.Row="0" CanUserAddRows="False">
+
+        <!-- DataGrid for displaying booking history -->
+        <DataGrid x:Name="dgBookingHistory" AutoGenerateColumns="False" Grid.Row="0" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Reservation ID" Binding="{Binding BookingReservationID}" Width="*"/>
                 <DataGridTextColumn Header="Booking Date" Binding="{Binding BookingDate, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
                 <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="*"/>
                 <DataGridTextColumn Header="Customer ID" Binding="{Binding CustomerID}" Width="*"/>
-                <DataGridTextColumn Header="Booking Status" Binding="{Binding BookingStatus}" Width="*"/>
-                <DataGridTemplateColumn Width="Auto">
+                <DataGridTemplateColumn Header="Booking Status" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BookingStatus}" Value="0">
+                                                <Setter Property="Text" Value="Pending"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding BookingStatus}" Value="1">
+                                                <Setter Property="Text" Value="Confirmed"/>
+                                            </DataTrigger>
+                                          
+                                          
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Actions" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="View Details" Name="btnDetail" Click="btnDetail_Click"/>
@@ -28,19 +51,13 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="btnLogout1"
-Grid.Column="1"
-Grid.Row="1"
-Content="Logout"
-Width="100" Margin="0,0,200,0"
-Height="30"
-Click="btnLogout1_Click"></Button>
-        <Button Name="btnClose"
-Grid.Column="1"
-Grid.Row="1"
-Content="Close"
-Width="100" Margin="200,0,0,0"
-Height="30"
-Click="btnClose_Click"></Button>
+
+        
+        <Button x:Name="btnLogout1" Grid.Column="1" Grid.Row="1"
+                Content="Logout" Width="100" Height="30" Margin="0,0,200,0"
+                Click="btnLogout1_Click"/>
+        <Button x:Name="btnClose" Grid.Column="1" Grid.Row="1"
+                Content="Close" Width="100" Height="30" Margin="200,0,0,0"
+                Click="btnClose_Click"/>
     </Grid>
 </Window>

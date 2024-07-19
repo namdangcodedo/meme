@@ -45,6 +45,8 @@ namespace NAMDNHE176906WPF
             }
         }
 
+
+
         private void btnLogout1_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
