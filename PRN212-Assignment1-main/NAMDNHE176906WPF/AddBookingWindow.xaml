@@ -44,7 +44,7 @@
                   Grid.Row="4" EnableRowVirtualization="False"
                   VerticalScrollBarVisibility="auto"
                   CanUserAddRows="False" AutoGenerateColumns="False"
-                  Name="ListView" SelectionMode="Single">
+                  x:Name="dgRooms" SelectionMode="Single"  >
             <DataGrid.Columns >
                 <DataGridTextColumn 
                     Header="Room Number" 
@@ -93,11 +93,10 @@
         <Button Grid.Column="1"
             Grid.Row="2"
             Height="30"
-            Content="ADD"
+            Content="Add"
             FontSize="18"
             Margin="658,5,10,5"
-            x:Name="btnadd"
-            Click=""/>
+            x:Name="btnadd" Click="btnadd_Click"/>
     </Grid>
 </Window>
 

@@ -14,7 +14,7 @@ namespace DataAccess
     {
         private static CustomerDAO instance = null;
         private static readonly object instanceLock = new object();
-        private CustomerDAO() { }
+        public CustomerDAO() { }
         public static CustomerDAO Instance
         {
             get
@@ -100,7 +100,7 @@ namespace DataAccess
             }
         }
         //---------------------------------
-        public void Add(Customer customer)
+        public bool Add(Customer customer)
         {
             try
             {
@@ -114,10 +114,12 @@ namespace DataAccess
                 parameters.Add(DataProvider.CreateParameter("@CustomerStatus", customer.CustomerStatus, DbType.Int32));
                 parameters.Add(DataProvider.CreateParameter("@Password", 50, customer.Password, DbType.String));
                 DataProvider.Insert(SQLInsert, CommandType.Text, parameters.ToArray());
+                return true;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+                    return false;
             }
             finally
             {
@@ -185,7 +187,10 @@ namespace DataAccess
                 CloseConnection();
             }
         }
-            
+
+        
+
+
     }
     
 }

@@ -33,20 +33,21 @@ namespace NAMDNHE176906WPF
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
-            if(string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPass.Password))
+            if (string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPass.Password))
             {
                 MessageBox.Show("Please input all fields", "Login");
                 return;
             }
 
             Customer customer = customerRepository.Login(txtEmail.Text, txtPass.Password);
-            if(isValidLogin(txtEmail.Text, txtPass.Password))
+
+            if (isValidLogin(txtEmail.Text, txtPass.Password))
             {
                 AdminWindow adminWindow = new AdminWindow();
                 adminWindow.Show();
                 this.Close();
-            } else if (customer != null)
+            }
+            else if (customer != null)
             {
                 CustomerWindow customerWindow = new CustomerWindow
                 {
@@ -54,7 +55,8 @@ namespace NAMDNHE176906WPF
                 };
                 customerWindow.Show();
                 this.Close();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Login failed! Email or password incorrect", "Login");
             }
@@ -63,22 +65,24 @@ namespace NAMDNHE176906WPF
         private bool isValidLogin(string email, string password)
         {
             IConfiguration config = new ConfigurationBuilder()
-               .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-               .AddJsonFile("appsettings.json", true, true)
-               .Build();
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
             var adminEmail = config["Admin:Email"];
             var adminPass = config["Admin:Password"];
-            if (adminEmail == email && adminPass == password)
+
+            if (string.IsNullOrEmpty(adminEmail) || string.IsNullOrEmpty(adminPass))
             {
-                return true;
+                return false;
             }
-            return false;
+
+            return adminEmail == email && adminPass == password;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 this.Close();
             }

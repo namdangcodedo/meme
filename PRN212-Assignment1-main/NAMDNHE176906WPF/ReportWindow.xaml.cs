@@ -80,5 +80,7 @@ namespace NAMDNHE176906WPF
                 detailWindow.ShowDialog();
             }
         }
+
+       
     }
 }

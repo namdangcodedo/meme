@@ -13,7 +13,7 @@ namespace DataAccess
     {
         private static BookingReservationDAO instance = null;
         private static readonly object instanceLock = new object();
-        private BookingReservationDAO() { }
+        public BookingReservationDAO() { }
 
         public static BookingReservationDAO Instance
         {
@@ -61,6 +61,62 @@ namespace DataAccess
                 CloseConnection();
             }
         }
+        public List<BookingReservation> GetBookingReservationsList1()
+        {
+            SqlDataReader reader = null;
+            string SQL = "SELECT * FROM BookingReservation";
+            var bookingReservations = new List<BookingReservation>();
+            try
+            {
+                reader = DataProvider.GetDataReader(SQL, CommandType.Text, out connection);
+                while (reader.Read())
+                {
+                    bookingReservations.Add(new BookingReservation()
+                    {
+                        BookingReservationID = reader.GetInt32("BookingReservationID"),
+                        BookingDate = reader.GetDateTime("BookingDate"),
+                        TotalPrice = reader.GetDecimal("TotalPrice"),
+                        CustomerID = reader.GetInt32("CustomerID"),
+                        BookingStatus = reader.GetByte("BookingStatus")
+                    });
+                }
+                return bookingReservations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                reader.Close();
+                CloseConnection();
+            }
+        }
+
+        public int GetcountBookingReservationsList1()
+        {
+            SqlDataReader reader = null;
+            string SQL = "SELECT COUNT(*) FROM BookingReservation";
+            try
+            {
+                int count = 0;
+                reader = DataProvider.GetDataReader(SQL, CommandType.Text, out connection);
+                if (reader.Read())
+                {
+                    count = reader.GetInt32(0);
+                }
+                return count;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                reader.Close();
+                CloseConnection();
+            }
+        }
         //---------------------------------
         public BookingReservation GetBookingReservationByID(int bookingReservationID)
         {
@@ -93,8 +149,9 @@ namespace DataAccess
                 CloseConnection();
             }
         }
+
         //---------------------------------
-        public void Add(BookingReservation bookingReservation)
+        public bool Add(BookingReservation bookingReservation)
         {
             try
             {
@@ -105,19 +162,28 @@ namespace DataAccess
                     throw new Exception("The booking reservation already exists.");
                 }
 
-                string SQLInsert = "INSERT INTO BookingReservation (BookingDate, TotalPrice, CustomerID, BookingStatus) " +
-                                   "VALUES (@BookingDate, @TotalPrice, @CustomerID, @BookingStatus)";
-                var parameters = new List<SqlParameter>();
-                parameters.Add(DataProvider.CreateParameter("@BookingDate", bookingReservation.BookingDate, DbType.DateTime));
-                parameters.Add(DataProvider.CreateParameter("@TotalPrice", bookingReservation.TotalPrice, DbType.Decimal));
-                parameters.Add(DataProvider.CreateParameter("@CustomerID", bookingReservation.CustomerID, DbType.Int32));
-                parameters.Add(DataProvider.CreateParameter("@BookingStatus", bookingReservation.BookingStatus, DbType.Byte));
+                BookingReservationDAO dal = new BookingReservationDAO();
+                int c = dal.GetcountBookingReservationsList1();
+                c++;
+                    string SQLInsert = "INSERT INTO BookingReservation (BookingReservationID,BookingDate, TotalPrice, CustomerID, BookingStatus) " +
+                           "VALUES (@BookingReservationID,@BookingDate, @TotalPrice, @CustomerID, @BookingStatus)";
+                var parameters = new List<SqlParameter>
+                          {
+
+               DataProvider.CreateParameter("@BookingReservationID", c,DbType.Int32),
+              DataProvider.CreateParameter("@BookingDate", bookingReservation.BookingDate, DbType.DateTime),
+               DataProvider.CreateParameter("@TotalPrice", bookingReservation.TotalPrice, DbType.Decimal),
+              DataProvider.CreateParameter("@CustomerID", bookingReservation.CustomerID, DbType.Int32),
+               DataProvider.CreateParameter("@BookingStatus", bookingReservation.BookingStatus, DbType.Byte)
+        };
 
                 DataProvider.Insert(SQLInsert, CommandType.Text, parameters.ToArray());
+                return true;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+                 return false;      
             }
             finally
             {

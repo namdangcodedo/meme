@@ -20,6 +20,7 @@ namespace NAMDNHE176906WPF
     /// </summary>
     public partial class CustomerWindow : Window
     {
+
         public CustomerWindow()
         {
             InitializeComponent();
@@ -59,5 +60,12 @@ namespace NAMDNHE176906WPF
             booking.Show();
             this.Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddBookingWindow addBookingWindow = new AddBookingWindow();
+            addBookingWindow.Account = Account;
+            addBookingWindow.Show();
+         }
     }
 }
