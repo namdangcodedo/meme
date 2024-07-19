@@ -127,14 +127,29 @@ namespace NAMDNHE176906WPF
 
             // Tạo đối tượng DAO và thêm đặt phòng vào cơ sở dữ liệu
             BookingReservationDAO dal = new BookingReservationDAO();
-            bool isBookingSuccessful = dal.Add(booking);
 
+            bool isBookingSuccessful = dal.Add(booking);
+            BookingDetailDAO dao = new BookingDetailDAO();
+            int bookingReservationID = dal.GetcountBookingReservationsList1();
+            BookingDetail bookingDetail = new BookingDetail
+            {
+                StartDate = start,
+                EndDate = end,
+                BookingReservationID = bookingReservationID,
+                ActualPrice = roomInformation.RoomPricePerDate,
+                RoomID = roomInformation.RoomID
+            };
+            dao.Add(bookingDetail);
+            
             // Kiểm tra kết quả của việc thêm đặt phòng
             if (isBookingSuccessful)
             {
                 AddBookingWindow addBookingWindow = new AddBookingWindow();
                 this.Close();
+                addBookingWindow.Account = Account;
+                MessageBox.Show("Booked successfully!");
                 addBookingWindow.Show();
+               
             }
             else
             {

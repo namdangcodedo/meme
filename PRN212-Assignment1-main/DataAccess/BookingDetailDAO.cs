@@ -11,9 +11,9 @@ namespace DataAccess
 {
     public class BookingDetailDAO : BaseDAL
     {
-        private static BookingDetailDAO instance = null;
-        private static readonly object instanceLock = new object();
-        private BookingDetailDAO() { }
+        public static BookingDetailDAO instance = null;
+        public static readonly object instanceLock = new object();
+        public BookingDetailDAO() { }
 
         public static BookingDetailDAO Instance
         {
@@ -101,10 +101,8 @@ namespace DataAccess
             try
             {
                 // Check if the booking detail already exists
-                BookingDetail existingBookingDetail = GetBookingDetailsByBookingReservationIDAndRoomID(bookingDetail.BookingReservationID, bookingDetail.RoomID);
 
-                if (existingBookingDetail == null)
-                {
+                
                     string SQLInsert = "INSERT INTO BookingDetail (BookingReservationID, RoomID, StartDate, EndDate, ActualPrice) " +
                                        "VALUES (@BookingReservationID, @RoomID, @StartDate, @EndDate, @ActualPrice)";
                     var parameters = new List<SqlParameter>();
@@ -115,20 +113,13 @@ namespace DataAccess
                     parameters.Add(DataProvider.CreateParameter("@ActualPrice", bookingDetail.ActualPrice, DbType.Decimal));
 
                     DataProvider.Insert(SQLInsert, CommandType.Text, parameters.ToArray());
-                }
-                else
-                {
-                    throw new Exception("The booking detail already exists.");
-                }
+               
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            finally
-            {
-                CloseConnection();
-            }
+           
         }
         //------------------------------
         public void Delete(BookingDetail bookingDetail)

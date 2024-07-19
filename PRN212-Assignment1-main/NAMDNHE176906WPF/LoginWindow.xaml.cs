@@ -87,5 +87,11 @@ namespace NAMDNHE176906WPF
                 this.Close();
             }
         }
+
+        public void btnRegiter_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterWindow register = new RegisterWindow();
+            register.Show();
+        }
     }
 }

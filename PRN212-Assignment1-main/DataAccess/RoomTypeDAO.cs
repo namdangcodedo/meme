@@ -11,9 +11,9 @@ namespace DataAccess
 {
     public class RoomTypeDAO : BaseDAL
     {
-        private static RoomTypeDAO instance = null;
-        private static readonly object instanceLock = new object();
-        private RoomTypeDAO() { }
+        public static RoomTypeDAO instance = null;
+        public static readonly object instanceLock = new object();
+        public RoomTypeDAO() { }
 
         public static RoomTypeDAO Instance
         {
