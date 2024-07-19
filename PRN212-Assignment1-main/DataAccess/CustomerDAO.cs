@@ -188,7 +188,40 @@ namespace DataAccess
             }
         }
 
-        
+        public bool SetPassword(Customer account, string pass)
+        {           
+            try
+            {
+                Customer cus = GetCustomerByID(account.CustomerID);
+                if (cus != null)
+                {
+                    string SQLUpdate = "UPDATE [dbo].[Customer] SET [Password] = @Password WHERE [CustomerID] = @CustomerID";
+                    var parameters = new List<SqlParameter>
+            {
+                DataProvider.CreateParameter("@CustomerID", account.CustomerID, DbType.Int32),
+                DataProvider.CreateParameter("@Password", pass, DbType.String)
+            };
+
+                    DataProvider.Update(SQLUpdate, CommandType.Text, parameters.ToArray());
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("The customer does not exist.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception or handling it more appropriately
+                // Log exception
+                throw new Exception("An error occurred while updating the password: " + ex.Message, ex);
+                return false;
+            }
+            
+        }
+
+
 
 
     }
