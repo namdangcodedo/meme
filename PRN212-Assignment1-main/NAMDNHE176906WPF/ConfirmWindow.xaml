@@ -11,25 +11,32 @@
         <DatePicker Name="dpStart"
            Margin="0,32,0,373" Width="200"
            HorizontalAlignment="Left"/>
-        <Label Margin="260,3,5,373">
-            <ComboBox Width="121" RenderTransformOrigin="1.925,1.711"/>
+        <Label Margin="260,3,5,373" Content="End Date">
+            
         </Label>
         <Label  Content="List Booking" Margin="0,70,648,333"/>
         <DatePicker Name="dpEnd"
            Margin="260,32,340,373" Width="200"/>
-        <ListView Name="listRoomCanBooks" Height="318" VerticalAlignment="Top" Margin="0,106,0,0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="BookingReservationID" Width="140" DisplayMemberBinding="{Binding Path=RoomID}"/>
-                    <GridViewColumn Header="CustomerID" Width="100" DisplayMemberBinding="{Binding Path=RoomNumber}"/>
-                    <GridViewColumn Header="StartDate" Width="120" DisplayMemberBinding="{Binding Path=RoomDescription}"/>
-                    <GridViewColumn Header="EndDate" Width="120" DisplayMemberBinding="{Binding Path=RoomMaxCapacity}"/>
-                    <GridViewColumn Header="CustomerID" Width="120" DisplayMemberBinding="{Binding Path=RoomPricePerDate}"/>
-                    <GridViewColumn Header="Action" Width="200" DisplayMemberBinding="{Binding Path=RoomPricePerDate}"/>
+        <DataGrid Name="lvbooking" AutoGenerateColumns="False" Grid.Row="0" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding customerName}" Width="*"/>
+                <DataGridTextColumn Header="PhoneNumber" Binding="{Binding customerPhone}" Width="*"/>
+                <DataGridTextColumn Header="RoomNumber" Binding="{Binding roomNumber}" Width="*"/>
+                <DataGridTextColumn Header="RoomDetails" Binding="{Binding roomDetails}" Width="*"/>
+                <DataGridTextColumn Header="Start Date" Binding="{Binding checkIn, StringFormat=d/MM/yyyy}" Width="*"/>
+                <DataGridTextColumn Header="End Date" Binding="{Binding checkOut, StringFormat=d/MM/yyyy}" Width="*"/>
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            
+                            <Button Content="Confirm" Click="btn_confirm" Tag="{Binding BookingReservationID}" />
 
-                </GridView>
-            </ListView.View>
-        </ListView>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
 
 
     </Grid>

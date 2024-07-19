@@ -10,6 +10,7 @@ namespace Repositories
 {
     public class BookingReservationRepository : IBookingReservationRepository
     {
+        
         public void AddBooking(BookingReservation bookingReservation) => BookingReservationDAO.Instance.Add(bookingReservation);
 
         public List<BookingReservation> GetAll() => BookingReservationDAO.Instance.GetBookingReservationsList().ToList();
@@ -31,5 +32,6 @@ namespace Repositories
             var bookings = GetAll();
             return bookings.Where(b => b.BookingDate >= start && b.BookingDate <= end).ToList();
         }
+
     }
 }

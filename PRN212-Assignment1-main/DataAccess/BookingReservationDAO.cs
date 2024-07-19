@@ -249,6 +249,55 @@ namespace DataAccess
                 CloseConnection();
             }
         }
+        public List<ViewBookingForAdmin>List()
+        {
+            SqlDataReader reader = null;
+            string SQL = "SELECT \r\n    br.BookingReservationID, \r\n    c.CustomerFullName,\r\n    c.Telephone,\r\n    ri.RoomNumber,\r\n    ri.RoomDetailDescription,\r\n    bd.StartDate,\r\n    bd.EndDate\r\nFROM \r\n    BookingDetail bd\r\nJOIN \r\n    BookingReservation br ON bd.BookingReservationID = br.BookingReservationID\r\nJOIN \r\n    RoomInformation ri ON bd.RoomID = ri.RoomID\r\nJOIN \r\n    Customer c ON br.CustomerID = c.CustomerID\r\nWHERE \r\n    br.BookingStatus = '0';";
+            var bookingReservationsa = new List<ViewBookingForAdmin>();
+            try
+            {
+                reader = DataProvider.GetDataReader(SQL, CommandType.Text, out connection);
+                while (reader.Read())
+                {
+                    bookingReservationsa.Add(new ViewBookingForAdmin()
+                    {
+                        bookingReservationID = reader.GetInt32("BookingReservationID"),
+                        customerName = reader.GetString("CustomerFullName"),
+                        customerPhone = reader.GetString("Telephone"),
+                        roomNumber = reader.GetString("RoomNumber"),
+                        roomDetails = reader.GetString("RoomDetailDescription"),
+                        checkIn = reader.GetDateTime("StartDate"),
+                        checkOut = reader.GetDateTime("EndDate")
+                    });
+                }
+                return bookingReservationsa;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                reader.Close();
+                CloseConnection();
+            }
+        }
 
+        public void UpdateBookingStatus(int bookingReservationID)
+        {
+            
+                string connectionString = "Data Source=(local)\\MSSQLSERVER03;Initial Catalog=FUMiniHotelManagement;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+                string query = "UPDATE BookingReservation SET BookingStatus = 1 WHERE BookingReservationID = @BookingReservationID";
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@BookingReservationID", bookingReservationID);
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

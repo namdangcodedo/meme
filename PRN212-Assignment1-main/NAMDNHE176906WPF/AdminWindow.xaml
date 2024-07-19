@@ -14,6 +14,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Label Content="Admin Management" Grid.Row="0"
                Grid.Column="0" Grid.ColumnSpan="3"
@@ -30,7 +31,8 @@
         <Button Name="btnReport" Grid.Row="3" 
         Content="View report" 
         Margin="100, 20, 100, 20" Click="btnReport_Click"></Button>
-        <Button Name="btnLogOut" Grid.Row="4" 
+        <Button Content="View List Booking" Name="btnViewBooking" Margin="100, 20, 100, 20" Grid.Row="4" Click="btnViewBooking_Click"/>
+        <Button Name="btnLogOut" Grid.Row="5" 
                 Content="Log Out" 
                 Margin="100, 20, 100, 20" Click="btnLogOut_Click"></Button>
     </Grid>

@@ -51,5 +51,12 @@ namespace NAMDNHE176906WPF
             reportWindow.Show();
             this.Close();
         }
+
+        private void btnViewBooking_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmWindow confirmWindow = new ConfirmWindow();
+            confirmWindow.Show();
+            this.Close();
+        }
     }
 }
