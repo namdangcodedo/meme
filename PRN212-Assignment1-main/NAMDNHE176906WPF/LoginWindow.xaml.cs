@@ -93,5 +93,10 @@ namespace NAMDNHE176906WPF
             RegisterWindow register = new RegisterWindow();
             register.Show();
         }
+
+        private void btnRegiter_Copy_Click()
+        {
+
+        }
     }
 }
