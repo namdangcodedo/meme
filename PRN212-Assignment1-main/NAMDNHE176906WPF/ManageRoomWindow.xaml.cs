@@ -111,6 +111,7 @@ namespace NAMDNHE176906WPF
                     if (result == MessageBoxResult.Yes)
                     {
                         roomInformationRepository.RemoveRoomInformation(room);
+                        LoadRoomList();
                     }
                 }
                 else

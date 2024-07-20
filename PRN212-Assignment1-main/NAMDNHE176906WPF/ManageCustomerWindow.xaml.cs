@@ -120,6 +120,7 @@ namespace NAMDNHE176906WPF
                     if (result == MessageBoxResult.Yes)
                     {
                         customerRepository.RemoveCustomer(customer);
+                        LoadCustomerList();
                     }
                 }
                 else
